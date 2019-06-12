@@ -220,7 +220,7 @@ public class PurchaseController {
 	}
 
 	/**
-	 * 4. Confirm Order ie chnage status to ORDERED 
+	 * 4. Confirm Order i.e. change status to ORDERED 
 	 */
 	@RequestMapping("/updateOrderStatus")
 	public String updateOrderConfirm(@RequestParam Integer orderId,@RequestParam String status,ModelMap map) {
