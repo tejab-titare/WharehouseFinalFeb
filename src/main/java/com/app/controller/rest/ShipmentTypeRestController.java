@@ -27,9 +27,9 @@ public class ShipmentTypeRestController {
 	@GetMapping("all")
 	public ResponseEntity<?> getAll() {
 
-		ResponseEntity<?> responseEntity =null;
-		List<ShipmentType> shipmentTypes=service.getAllShipmentTypes();
-		if (shipmentTypes!=null && !shipmentTypes.isEmpty()) {
+		ResponseEntity<?> responseEntity = null;
+		List<ShipmentType> shipmentTypes = service.getAllShipmentTypes();
+		if (shipmentTypes != null && !shipmentTypes.isEmpty()) {
 			responseEntity = new ResponseEntity<List<ShipmentType>>(shipmentTypes, HttpStatus.OK);
 		} else {
 			responseEntity = new ResponseEntity<String>("No data is available", HttpStatus.OK);
@@ -38,83 +38,67 @@ public class ShipmentTypeRestController {
 
 		return responseEntity;
 	}
-	
+
 	@GetMapping("/get/{shipmentId}")
-	public ResponseEntity<?> getOne(@PathVariable Integer shipmentId){
-		
+	public ResponseEntity<?> getOne(@PathVariable Integer shipmentId) {
+
 		ResponseEntity<?> responseEntity;
-		ShipmentType shipmentType=service.getShipmentTypeById(shipmentId);
-		
-		if (shipmentType!=null) {
-			responseEntity = new ResponseEntity<ShipmentType>(shipmentType,HttpStatus.OK);
+		ShipmentType shipmentType = service.getShipmentTypeById(shipmentId);
+
+		if (shipmentType != null) {
+			responseEntity = new ResponseEntity<ShipmentType>(shipmentType, HttpStatus.OK);
 		} else {
-			responseEntity = new ResponseEntity<String>("Shipment "+shipmentId+" is not avialable", HttpStatus.BAD_REQUEST);
+			responseEntity = new ResponseEntity<String>("Shipment " + shipmentId + " is not avialable",
+					HttpStatus.BAD_REQUEST);
 		}
-		/*try {
-			ShipmentType shipmentType=service.getShipmentTypeById(shipmentId);
-			responseEntity = new ResponseEntity<ShipmentType>(shipmentType,HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * try { ShipmentType shipmentType=service.getShipmentTypeById(shipmentId);
+		 * responseEntity = new
+		 * ResponseEntity<ShipmentType>(shipmentType,HttpStatus.OK); } catch (Exception
+		 * e) { e.printStackTrace(); }
+		 */
 		return responseEntity;
 	}
-	
+
 	@DeleteMapping("/delete/{shipmentId}")
-	public ResponseEntity<?> deleteOne(@PathVariable Integer shipmentId){
-		
+	public ResponseEntity<?> deleteOne(@PathVariable Integer shipmentId) {
+
 		ResponseEntity<?> responseEntity;
 		try {
 			service.deleteShipmentType(shipmentId);
-			responseEntity = new ResponseEntity<String>("Shipment "+shipmentId+" is successfully deleted", HttpStatus.OK);
+			responseEntity = new ResponseEntity<String>("Shipment " + shipmentId + " is " + "successfully deleted",
+					HttpStatus.OK);
 		} catch (Exception e) {
-			responseEntity = new ResponseEntity<String>("Shipment "+shipmentId+" is not available", HttpStatus.OK);
+			responseEntity = new ResponseEntity<String>("Shipment " + shipmentId + " is not available", HttpStatus.OK);
 
 		}
 		return responseEntity;
 	}
-	
+
 	@PostMapping("/save")
-	public ResponseEntity<?> save(@RequestBody ShipmentType shipmentType){
-		
-		int shipmenTypetId=service.saveShipmentType(shipmentType);
-		
-		String body="Shipment is saved '"+shipmenTypetId+"'.";
-		ResponseEntity<String> responseEntity=new ResponseEntity<String>(body, HttpStatus.OK);
+	public ResponseEntity<?> save(@RequestBody ShipmentType shipmentType) {
+
+		int shipmenTypetId = service.saveShipmentType(shipmentType);
+
+		String body = "Shipment is saved '" + shipmenTypetId + "'.";
+		ResponseEntity<String> responseEntity = new ResponseEntity<String>(body, HttpStatus.OK);
 		return responseEntity;
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody ShipmentType shipmentType) {
-		
-		ResponseEntity<String> responseEntity=null;
+
+		ResponseEntity<String> responseEntity = null;
 		try {
 			service.updateShipmentType(shipmentType);
-			responseEntity=new ResponseEntity<String>("ShipmentType "+shipmentType.getShipmentid()+" is updated.", HttpStatus.OK);
+			responseEntity = new ResponseEntity<String>("ShipmentType " + shipmentType.getShipmentid() + " is updated.",
+					HttpStatus.OK);
 		} catch (Exception e) {
-			
-			responseEntity=new ResponseEntity<String>("ShipmentType "+shipmentType.getShipmentid()+" is not updated.", HttpStatus.BAD_REQUEST);
+
+			responseEntity = new ResponseEntity<String>(
+					"ShipmentType " + shipmentType.getShipmentid() + " is not updated.", HttpStatus.BAD_REQUEST);
 			e.printStackTrace();
 		}
 		return responseEntity;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
